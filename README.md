@@ -1,19 +1,14 @@
-# Project Billing Manager — Odoo 17
+# Odoo Portfolio — Marlon Torres
 
-Módulo personalizado para Odoo 17 que extiende la gestión de proyectos 
-añadiendo control de facturación basado en partes de horas.
+Colección de módulos personalizados para Odoo 17 desarrollados como
+portfolio profesional. Cada módulo demuestra técnicas reales usadas
+en proyectos de consultoría Odoo.
 
-## ¿Qué hace este módulo?
+## Módulos
 
-Permite a las consultoras y empresas de servicios gestionar el ciclo 
-completo de facturación de proyectos directamente desde Odoo:
-
-- Configura una tarifa por hora para cada proyecto
-- Calcula automáticamente el importe facturable según las horas registradas
-- Genera facturas de cliente con un solo clic
-- Registra el historial completo de facturación por proyecto
-
-## Técnicas demostradas
+### 📁 Project Billing Manager
+Extiende la gestión de proyectos añadiendo un ciclo completo de
+facturación automática basada en partes de horas.
 
 | Técnica | Implementación |
 |---|---|
@@ -26,60 +21,57 @@ completo de facturación de proyectos directamente desde Odoo:
 | SQL directo | `env.cr.execute()` para estadísticas agregadas |
 | Seguridad | `ir.model.access.csv` con roles diferenciados |
 
-## Estructura del módulo
-
-```
-project_billing_manager/
-├── __manifest__.py
-├── __init__.py
-├── models/
-│   ├── __init__.py
-│   ├── project_project.py      # Herencia + lógica de facturación
-│   └── billing_summary.py      # Modelo propio de historial
-├── views/
-│   ├── project_project_views.xml
-│   ├── billing_summary_views.xml
-│   └── menu.xml
-├── report/
-│   ├── billing_report.xml
-│   └── billing_report_action.xml
-└── security/
-    └── ir.model.access.csv
-```
-
-## Instalación
-
-### Requisitos
-- Odoo 17 Community
-- Módulos: `project`, `account`, `hr_timesheet`
-
-### Con Docker (recomendado)
-
-```bash
-git clone https://github.com/MarlonDT24/odoo-project-billing-manager.git
-cd odoo-project-billing-manager
-docker-compose up -d
-```
-
-Accede a `http://localhost:8069` e instala el módulo 
-`project_billing_manager` desde Aplicaciones.
-
-### Manual
-
-Copia la carpeta `addons/project_billing_manager` a tu directorio 
-de addons y actualiza la lista de módulos.
-
-## Flujo de uso
-
+**Flujo de uso:**
 1. Abre un proyecto en Odoo
 2. Ve a la pestaña **Facturación**
 3. Asigna un cliente y configura la tarifa por hora
 4. Registra horas en los partes de horas del proyecto
-5. Pulsa **Generar Factura** — se crea automáticamente con las horas y tarifa
+5. Pulsa **Generar Factura** — se crea automáticamente
+
+---
+
+### 📁 Account Invoice Customizer
+Extiende las facturas de cliente añadiendo campos personalizados,
+validaciones de negocio al confirmar y reporte PDF personalizado.
+
+| Técnica | Implementación |
+|---|---|
+| Herencia de `account.move` | `_inherit = 'account.move'` |
+| Lógica en confirmación | Herencia de `action_post()` |
+| Validaciones | `@api.constrains` con reglas de negocio |
+| Campos computados | Días de retraso, total formateado |
+| Herencia de vistas XML | Nueva pestaña en formulario de factura |
+| Herencia de reporte QWeb | Extensión del PDF estándar de factura |
+
+**Flujo de uso:**
+1. Abre una factura de cliente en Odoo
+2. Rellena el número de expediente en la cabecera
+3. Ve a la pestaña **Información Interna**
+4. Confirma la factura — valida automáticamente las reglas de negocio
+5. El PDF incluye el expediente y el aviso de facturas vencidas
+
+---
+
+## Entorno de desarrollo
+
+### Requisitos
+- Docker Desktop
+- Odoo 17 Community
+
+### Instalación
+
+```bash
+git clone https://github.com/MarlonDT24/odoo-portfolio.git
+cd odoo-portfolio
+docker-compose up -d
+```
+
+Accede a `http://localhost:8069` e instala los módulos desde
+Aplicaciones.
 
 ## Autor
 
-**Marlon Torres** — Desarrollador Odoo & FullStack  
-[LinkedIn](https://www.linkedin.com/in/marlon-torres-982a17305) · 
-[GitHub](https://github.com/MarlonDT24) · 
+**Marlon Torres** — Desarrollador Odoo & FullStack
+[LinkedIn](https://www.linkedin.com/in/marlon-torres-982a17305) ·
+[GitHub](https://github.com/MarlonDT24) ·
 [Portfolio](https://marlondev-portfolio.vercel.app)
