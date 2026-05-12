@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         HERENCIA DEL REPORTE PDF DE FACTURA ESTÁNDAR DE ODOO
+         Extendemos el template oficial para añadir nuestros campos
+    ═══════════════════════════════════════════════════════════ -->
+    <template 
+        id="report_invoice_customizer"
+        inherit_id="account.report_invoice_document">
+
+        <!-- Añadimos el número de expediente debajo del título -->
+        <xpath expr="//div[hasclass('row')]" position="before">
+            <t t-if="o.expedition_number">
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <strong>Nº Expediente: </strong>
+                        <span t-field="o.expedition_number"/>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+
+        <!-- Añadimos días de retraso si los hay -->
+        <xpath expr="//div[hasclass('row')]" position="before">
+            <t t-if="o.days_overdue > 0">
+                <div class="row mb-2 text-danger">
+                    <div class="col-12">
+                        <strong>⚠ Factura vencida: </strong>
+                        <span t-field="o.days_overdue"/>
+                        <span> días de retraso</span>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+
+    </template>
+
+</odoo>
